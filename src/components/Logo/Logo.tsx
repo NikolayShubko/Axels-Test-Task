@@ -1,8 +1,9 @@
 import { Link } from "@mui/material";
+import { NavLink } from "react-router";
 
 const Logo = () => {
   return (
-    <Link href="#">
+    <Link component={NavLink} to={"/"}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="240"

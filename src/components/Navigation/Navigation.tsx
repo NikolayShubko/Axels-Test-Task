@@ -1,13 +1,16 @@
 import { Dashboard, Money } from "@mui/icons-material";
 import { Box, Link, List, ListItem } from "@mui/material";
+import { NavLink } from "react-router";
 const links = [
   {
     icon: <Dashboard />,
     route: "Home",
+    path: "/",
   },
   {
     icon: <Money />,
     route: "Expenses",
+    path: "/expenses",
   },
 ];
 const Navigation = () => {
@@ -39,7 +42,8 @@ const Navigation = () => {
           return (
             <ListItem key={link.route}>
               <Link
-                href="#"
+                component={NavLink}
+                to={`${link.path.toLowerCase()}`}
                 sx={{
                   // p: 1,
                   color: "#124170",
