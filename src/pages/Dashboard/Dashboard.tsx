@@ -1,6 +1,7 @@
 import { Box, Button, List, ListItem, Typography } from "@mui/material";
 import Chart from "../../components/Chart/Chart";
 import { expenses } from "../../mockData/expenses";
+import { Link as RouterLink } from "react-router";
 
 const Dashboard = () => {
   const sorted = [...expenses].sort((a, b) => {
@@ -13,7 +14,9 @@ const Dashboard = () => {
         <Box>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Typography component={"span"}>Latest expenses</Typography>
-            <Button>See All</Button>
+            <Button component={RouterLink} to={"/expenses"}>
+              See All
+            </Button>
           </Box>
           <List
             sx={{
