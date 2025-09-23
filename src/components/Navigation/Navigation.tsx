@@ -1,68 +1,73 @@
-import { Dashboard, Money } from "@mui/icons-material";
-import { Box, Link, List, ListItem } from "@mui/material";
+import {
+  AccountCircle,
+  Close,
+  Dashboard,
+  ReceiptLong,
+} from "@mui/icons-material";
+import {
+  Button,
+  Divider,
+  ListItem,
+  Toolbar,
+  useMediaQuery,
+} from "@mui/material";
+
 import { NavLink } from "react-router";
+import { breakpoints } from "../../Styles/variables";
+import { StyledDrawer, StyledLink } from "./Navigation-styled";
+
 const links = [
   {
     icon: <Dashboard />,
-    route: "Home",
+    route: "Dashboard",
     path: "/",
   },
   {
-    icon: <Money />,
+    icon: <ReceiptLong />,
     route: "Expenses",
     path: "/expenses",
   },
+  { icon: <AccountCircle />, route: "Account", path: "/settings" },
 ];
-const Navigation = () => {
+
+const Navigation = ({ open, handleToggle }) => {
+  const mediaQuery = useMediaQuery(`(min-width:${breakpoints.L})`);
+  const handleLinkClick = () => {
+    if (!mediaQuery) {
+      handleToggle();
+    }
+  };
   return (
-    <Box
-      component="aside"
-      sx={{
-        minHeight: "100vh",
-        bgcolor: "#DDF4E7",
-        borderRight: "1px solid #124170",
-        maxWidth: 240,
-        left: 0,
-        borderRadius: "7px",
-      }}
+    <StyledDrawer
+      anchor="left"
+      open={mediaQuery ? true : open}
+      onClose={handleToggle}
+      variant={mediaQuery ? "persistent" : "temporary"}
     >
-      <List
-        component="nav"
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "500px",
-          justifyContent: "flex-start",
-          alignContent: "center",
-          gap: "24px",
-          padding: 1,
-        }}
-      >
-        {links.map((link) => {
-          return (
-            <ListItem key={link.route}>
-              <Link
-                component={NavLink}
-                to={`${link.path.toLowerCase()}`}
-                sx={{
-                  // p: 1,
-                  color: "#124170",
-                  textDecoration: "none",
-                  "&:hover": { color: "#67C090" },
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 2,
-                }}
-              >
-                {link.icon}
-                {link.route}
-              </Link>
-            </ListItem>
-          );
-        })}
-      </List>
-    </Box>
+      {!mediaQuery && (
+        <>
+          <Toolbar>
+            <Button onClick={handleToggle} startIcon={<Close />} />
+          </Toolbar>
+          <Divider />
+        </>
+      )}
+      {links.map((link) => {
+        return (
+          <ListItem key={link.route}>
+            <StyledLink
+              to={`${link.path.toLowerCase()}`}
+              component={NavLink}
+              onClick={handleLinkClick}
+              startIcon={link.icon}
+              fullWidth
+            >
+              {link.route}
+            </StyledLink>
+          </ListItem>
+        );
+      })}
+    </StyledDrawer>
   );
 };
 
