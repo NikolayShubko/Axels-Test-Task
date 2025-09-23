@@ -1,7 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import Layout from "../pages/Layout/Layout";
-import Dashboard from "../pages/Dashboard/Dashboard";
-import Expenses from "../pages/Expenses/Expenses";
+import { Dashboard, Expenses, Layout } from "./pages";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +13,10 @@ export const router = createBrowserRouter([
       {
         path: "/expenses",
         element: <Expenses />,
+      },
+      {
+        path: "/settings",
+        element: <Dashboard />,
       },
     ],
   },

@@ -6,12 +6,17 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { expenses } from "../../mockData/expenses";
+import { expenses } from "../mockData/expenses";
+import styled from "styled-components";
 
-const Expenses = () => {
+const StyledTableContainer = styled(TableContainer)`
+  max-height: 75%;
+`;
+
+const ExpensesTable = () => {
   return (
-    <TableContainer>
-      <Table>
+    <StyledTableContainer>
+      <Table stickyHeader>
         <TableHead>
           <TableRow>
             <TableCell>Category</TableCell>
@@ -31,8 +36,8 @@ const Expenses = () => {
           })}
         </TableBody>
       </Table>
-    </TableContainer>
+    </StyledTableContainer>
   );
 };
 
-export default Expenses;
+export default ExpensesTable;
