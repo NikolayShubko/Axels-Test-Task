@@ -4,6 +4,8 @@ import { breakpoints, colors } from "../Styles/variables";
 import styled from "styled-components";
 import Logo from "./Logo";
 import StyledContainer from "./StyledContainer";
+import { useAppDispatch } from "../hooks";
+import { handleToggle } from "../store/slices/menuSlice";
 
 const AppBarStyled = styled(AppBar)`
   position: fixed;
@@ -11,16 +13,16 @@ const AppBarStyled = styled(AppBar)`
   box-sizing: border-box;
 `;
 
-const Header = ({ handleToggle }) => {
+const Header = () => {
   const mediaQuery = useMediaQuery(`(max-width:${breakpoints.L})`);
-
+  const dispatch = useAppDispatch();
   return (
     <>
       <AppBarStyled>
         <StyledContainer>
           <Toolbar>
             {mediaQuery && (
-              <IconButton onClick={handleToggle}>
+              <IconButton onClick={() => dispatch(handleToggle())}>
                 <Menu />
               </IconButton>
             )}

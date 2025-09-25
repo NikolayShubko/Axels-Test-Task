@@ -1,5 +1,7 @@
 import { ListItem, Paper, Typography } from "@mui/material";
 import styled from "styled-components";
+import type { FC } from "react";
+import { colors } from "../Styles/variables";
 
 const StyledPaper = styled(Paper)`
   width: 100%;
@@ -8,16 +10,27 @@ const StyledPaper = styled(Paper)`
   padding: 12px;
 `;
 
-const ExpenseCard = ({ id, category, amount, date }) => {
-  const dateLocale = new Date(date).toLocaleDateString();
+interface ExpenseCardProps {
+  category: string;
+  id: number;
+  amount: number;
+  formattedDate: string;
+}
+
+const ExpenseCard: FC<ExpenseCardProps> = ({
+  id,
+  category,
+  amount,
+  formattedDate,
+}) => {
   return (
     <ListItem key={id}>
       <StyledPaper variant="elevation" elevation={5}>
         <div>
           <Typography component={"h2"}>{category}</Typography>
-          <Typography component={"span"}>{dateLocale}</Typography>
+          <Typography component={"span"}>{formattedDate}</Typography>
         </div>
-        <Typography component={"span"} color="error">
+        <Typography component={"span"} color={colors.error}>
           {amount}$
         </Typography>
       </StyledPaper>

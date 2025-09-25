@@ -4,9 +4,9 @@ import ExpenseList from "./ExpenseList";
 import ExpensesTable from "./ExpensesTable";
 import Header from "./Header";
 import Logo from "./Logo";
+import ModalNew from "./ModalNew";
 import Navigation from "./Navigation/Navigation";
 import StyledContainer from "./StyledContainer";
-
 export {
   Chart,
   Header,
@@ -16,4 +16,5 @@ export {
   ExpensesTable,
   ExpenseList,
   StyledContainer,
+  ModalNew,
 };

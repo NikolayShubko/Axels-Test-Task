@@ -5,6 +5,7 @@ export const colors = {
   background: "#F9F9F9",
   stroke: "#E5E5E5",
   white: "#FfF",
+  error: "#E5533F",
 };
 
 export const breakpoints = {

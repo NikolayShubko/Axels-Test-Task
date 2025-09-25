@@ -15,6 +15,8 @@ import {
 import { NavLink } from "react-router";
 import { breakpoints } from "../../Styles/variables";
 import { StyledDrawer, StyledLink } from "./Navigation-styled";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { handleToggle } from "../../store/slices/menuSlice";
 
 const links = [
   {
@@ -30,24 +32,26 @@ const links = [
   { icon: <AccountCircle />, route: "Account", path: "/settings" },
 ];
 
-const Navigation = ({ open, handleToggle }) => {
+const Navigation = () => {
   const mediaQuery = useMediaQuery(`(min-width:${breakpoints.L})`);
-  const handleLinkClick = () => {
+  const handleClick = () => {
     if (!mediaQuery) {
-      handleToggle();
+      dispatch(handleToggle());
     }
   };
+  const dispatch = useAppDispatch();
+  const isOpen = useAppSelector((state) => state.menuReducer.isOpen);
   return (
     <StyledDrawer
       anchor="left"
-      open={mediaQuery ? true : open}
-      onClose={handleToggle}
+      open={mediaQuery ? true : isOpen}
+      onClose={handleClick}
       variant={mediaQuery ? "persistent" : "temporary"}
     >
       {!mediaQuery && (
         <>
           <Toolbar>
-            <Button onClick={handleToggle} startIcon={<Close />} />
+            <Button onClick={handleClick} startIcon={<Close />} />
           </Toolbar>
           <Divider />
         </>
@@ -58,7 +62,7 @@ const Navigation = ({ open, handleToggle }) => {
             <StyledLink
               to={`${link.path.toLowerCase()}`}
               component={NavLink}
-              onClick={handleLinkClick}
+              onClick={handleClick}
               startIcon={link.icon}
               fullWidth
             >

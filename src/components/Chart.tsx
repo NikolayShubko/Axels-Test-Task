@@ -1,6 +1,7 @@
 import { LineChart } from "@mui/x-charts";
 import { breakpoints, colors } from "../Styles/variables";
 import styled from "styled-components";
+import { useGetExpensesListSortedQuery } from "../expensesApi";
 
 interface ChartData {
   month: string;
@@ -16,17 +17,28 @@ const StyledLineChart = styled(LineChart)`
   }
 `;
 
-const Chart = ({ expenses }) => {
+const Chart = () => {
+  const { data: expenses, isLoading } = useGetExpensesListSortedQuery();
   const dataset: ChartData[] = Object.values(
-    expenses.reduce((acc, item) => {
-      acc[item.month] = acc[item.month] || { month: item.month, total: 0 };
-      acc[item.month].total += item.amount;
-      return acc;
-    }, {} as Record<string, { month: string; total: number }>)
+    (expenses ? [...expenses] : [])
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .reduce((acc, item) => {
+        const date = new Date(item.date);
+        const monthKey = `${date.getMonth() + 1}-${date.getFullYear()}`;
+        if (!acc[monthKey]) {
+          acc[monthKey] = {
+            month: monthKey,
+            total: 0,
+          };
+        }
+        acc[monthKey].total += item.amount;
+        return acc;
+      }, {} as Record<string, { month: string; total: number }>)
   );
   return (
     <>
       <StyledLineChart
+        loading={isLoading}
         colors={[colors.active]}
         dataset={dataset}
         xAxis={[{ dataKey: "month", scaleType: "band" }]}

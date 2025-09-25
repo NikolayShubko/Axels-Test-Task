@@ -1,6 +1,5 @@
 import { Box, Button, Grid, Typography, useMediaQuery } from "@mui/material";
 import Chart from "../components/Chart";
-import { expenses } from "../mockData/expenses";
 import { Link as RouterLink } from "react-router";
 import { breakpoints } from "../Styles/variables";
 import { ExpenseList } from "../components";
@@ -21,7 +20,7 @@ const Dashboard = () => {
           <ExpenseList />
         </Grid>
         <Grid size={mediaQuery ? 12 : 6}>
-          <Chart expenses={expenses} />
+          <Chart />
         </Grid>
       </Grid>
     </>
